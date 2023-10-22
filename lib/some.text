@@ -1,0 +1,79 @@
+ Positioned(
+              top: 359,
+              left: 15,
+              right: 15,
+              child: SizedBox(
+                width: 393,
+                height: 370,
+                child: GridView.count(
+                  mainAxisSpacing: 20,
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 1,
+                  children: List.generate(6,(index) {
+                      return Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Question(
+                                      score: 0,
+                                      questionindex: 0,
+                                      answerindex: 0,
+                                      namecontroller: namecontroller),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 110,
+                              height: 230,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color:Color.fromARGB(255, 255, 255, 255)),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                      width: 100,
+                                      height: 80,
+                                      child: Image.asset(
+                                          "assets/images/technolodgy.png")),
+                                  Text(
+                                    "Science & Technowledgy",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+              void showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert!!"),
+          content: Text("You are awesome!"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
