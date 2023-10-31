@@ -1,4 +1,4 @@
- Positioned(
+            Positioned(
               top: 359,
               left: 15,
               right: 15,
@@ -75,5 +75,261 @@
         );
       },
     );
-  }
-}
+
+
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Question(
+                                        namecontroller: namecontroller)));
+                            value.scoreclear();
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3.55,
+                            height: MediaQuery.of(context).size.height / 5.82,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4.8,
+                                    height: MediaQuery.of(context).size.height /
+                                        9.23,
+                                    child: Image.asset(
+                                        "assets/images/technolodgy.png")),
+                                Text(
+                                  "Science & Technowledgy",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                        Positioned(
+              top: MediaQuery.of(context).size.height / 1.93,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Consumer<Stateprovider>(builder: (context, value, child) {
+                        return 
+                      }),
+                      SizedBox(width: 15),
+                      Consumer<Stateprovider>(builder: (context, value, child) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => sportsQuestions(
+                                        namecontroller: namecontroller)));
+                            value.scoreclear();
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3.55,
+                            height: MediaQuery.of(context).size.height / 5.82,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color:
+                                    const Color.fromARGB(255, 255, 255, 255)),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 4.8,
+                                  height:
+                                      MediaQuery.of(context).size.height / 8.1,
+                                  child: Image.asset("assets/images/sports.png",
+                                      fit: BoxFit.cover),
+                                ),
+                                Text(
+                                  "Sports",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                      SizedBox(width: 15),
+                      Consumer<Stateprovider>(
+                        builder: (context, value, child) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LogicQuestion(
+                                          namecontroller: namecontroller)));
+                              value.scoreclear();
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3.55,
+                              height: MediaQuery.of(context).size.height / 5.82,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255)),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          4.8,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              8.1,
+                                      child: Image.asset(
+                                        "assets/images/matamatics.png",
+                                        fit: BoxFit.cover,
+                                      )),
+                                  Text(
+                                    "Logics",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height / 1.39,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Consumer<Stateprovider>(builder: (context, value, child) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EntertainmentQuestion(
+                                        namecontroller: namecontroller)));
+                            value.scoreclear();
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3.55,
+                            height: MediaQuery.of(context).size.height / 5.82,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color:
+                                    const Color.fromARGB(255, 255, 255, 255)),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          4.8,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              9.1,
+                                      child: Image.asset(
+                                          "assets/images/entertaiment.png",
+                                          fit: BoxFit.fill)),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Entertaiment",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                      SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 3.55,
+                          height: MediaQuery.of(context).size.height / 5.82,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: const Color.fromARGB(255, 255, 255, 255)),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 4.8,
+                                  height:
+                                      MediaQuery.of(context).size.height / 9.4,
+                                  child: Image.asset(
+                                    "assets/images/general.png",
+                                    fit: BoxFit.cover,
+                                  )),
+                              Text(
+                                "General Knowledge",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 3.55,
+                          height: MediaQuery.of(context).size.height / 5.82,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 4.8,
+                                  height:
+                                      MediaQuery.of(context).size.height / 8.4,
+                                  child: Image.asset(
+                                    "assets/images/arts.png",
+                                    fit: BoxFit.cover,
+                                  )),
+                              Text(
+                                "ART",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),

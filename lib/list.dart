@@ -1,13 +1,13 @@
-import 'package:flutter_application_1/other/listmodel.dart';
-
-List<Quizz> question = [
+import 'package:flutter_application_1/listmodel.dart';
+ 
+List<Quizz> sciencequestion = [
   Quizz(question: "What is the largest planet in our solar system"),
   Quizz(question: "Which planet is known as the Red Planet"),
   Quizz(question: "What is the name of the first human to walk on the moon"),
   Quizz(question: "What does 'CPU' stand for in tech terminology")
 ];
 
-List<Quizz> option = [
+List<Quizz> scienceoption = [
   Quizz(option: ["Earth", "Venus", "Mars", "Jupiter"], answer: 3),
   Quizz(option: ["Venus", "Mars", "Jupiter", "Saturn"], answer: 1),
   Quizz(option: ["Yuri Gagarin", "Neil Armstrong", "Alan Shepard", "John Glenn"],answer: 1),
@@ -49,9 +49,10 @@ List <Quizz> entertainmentQuestions = [
     Quizz(question: 'Which actor portrayed "Jack Dawson" in the movie "Titanic"'),
   
 ];
+
 List <Quizz> entertainmentoption = [
   Quizz(option: ['Joaquin Phoenix', 'Leonardo DiCaprio', 'Brad Pitt', 'Tom Hanks'],answer: 0,),
   Quizz(option: ['Star Trek', 'Star Wars', 'Interstellar', 'Guardians of the Galaxy'],answer: 1,),
   Quizz(option:['Freddie Mercury', 'Elton John', 'David Bowie', 'Mick Jagger'],answer : 0),
   Quizz(option:['Leonardo DiCaprio', 'Brad Pitt', 'Tom Hanks', 'Johnny Depp'],answer: 0),
-    ];
+];

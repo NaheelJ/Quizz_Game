@@ -1,52 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+List<String> usernamelist = [];
+List<String> passwordlist = [];
+int questionsAndOptions = 0;
+int questionindex = 0;
+int score = 0;
+
 class Stateprovider extends ChangeNotifier {
-  List<int> scores = [];
-  List<String> storedTimes = [];
-  int score = 0;
+  Question1State question = Question1State();
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
 
   void scoreclear() {
     score = 0;
-    print(score);
+    questionsAndOptions = 0;
     notifyListeners();
   }
 
-  Future<void> saveQuizResult() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userScoresString = prefs.getString('scores');
-    if (userScoresString != null) {
-      scores = userScoresString.split(',').map((s) => int.tryParse(s) ?? 0).toList();
-    }
-    scores.add(score);
-    //await prefs.clear();
-    prefs.setString('scores', scores.join(','));
+  void scoreincrement() {
+    score++;
+    notifyListeners();
   }
 
-  Future<void> getScores() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? scoresstring = prefs.getString('scores');
-    //await prefs.clear(); //to rest the saved preference
-    if (scoresstring != null) {
-      scores = scoresstring.split(',').map((s) => int.tryParse(s) ?? 0).toList();
-    }
-  }
-  
-  Future<void> saveTimeAndDate() async {
-    final now = DateTime.now();
-    final prefs = await SharedPreferences.getInstance();
-    final storedTimes = prefs.getStringList('storedTimes') ?? [];
-    storedTimes.add(now.toString());
-    await prefs.setStringList('storedTimes', storedTimes);
-    //await prefs.clear();
+  void questionAnadOptionIncrement() {
+    questionsAndOptions++;
+    questionindex++;
+    notifyListeners();
   }
 
-  Future<void> loadStoredTimes() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedTimesList = prefs.getStringList('storedTimes');
-    //await prefs.clear();
-    
-      storedTimes = storedTimesList ?? []; // Initialize as an empty list if null
-    
+  addlogin(String user, String pass) {
+    usernamelist.add(user);
+    passwordlist.add(pass);
+    saveLogindata();
+    notifyListeners();
   }
+
+  removeLogin() {
+    usernamelist.clear();
+    passwordlist.clear();
+    notifyListeners();
+  }
+
+  Future<void> saveLogindata() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setStringList('username', usernamelist);
+    pref.setStringList('pasword', passwordlist);
+  }
+   Future<void> removehistory() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.remove('storedTimes');
+    await pref.remove('scores');
+  }
+}
+
+Future<void> getloginData() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  usernamelist = pref.getStringList('username') ?? [];
+  passwordlist = pref.getStringList('pasword') ?? [];
 }
