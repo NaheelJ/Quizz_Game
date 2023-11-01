@@ -42,12 +42,17 @@ class Stateprovider extends ChangeNotifier {
     passwordlist.clear();
     notifyListeners();
   }
+  void timeAnddate(){
+    // storedTimes = storedTimesList ?? []; 
+    notifyListeners();
+  }
 
   Future<void> saveLogindata() async {
     final pref = await SharedPreferences.getInstance();
     pref.setStringList('username', usernamelist);
     pref.setStringList('pasword', passwordlist);
   }
+
    Future<void> removehistory() async {
     final pref = await SharedPreferences.getInstance();
     await pref.remove('storedTimes');

@@ -23,9 +23,6 @@ class HistoryState extends State<History> {
 
   @override
   Widget build(BuildContext context) {
-    print(usernamelist[0]);
-    print(widget.storedTimes);
-    print(widget.scores);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 239, 237, 255),
       body: SizedBox(

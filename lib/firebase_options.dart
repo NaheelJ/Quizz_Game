@@ -21,10 +21,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
@@ -47,30 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBC-OFBUjNClkm7ET6oDD0eKgO05fA2fl8',
-    appId: '1:166904127927:web:48ed588159ed0267b38832',
-    messagingSenderId: '166904127927',
-    projectId: 'quizz-game-b07ee',
-    authDomain: 'quizz-game-b07ee.firebaseapp.com',
-    storageBucket: 'quizz-game-b07ee.appspot.com',
-    measurementId: 'G-EG26F8R8ZF',
+    apiKey: 'AIzaSyAhzfGFSggXLcCow2qLXwEc2Cdm0PEfKzE',
+    appId: '1:675068008648:web:64e2ef64a1a9d620872dfd',
+    messagingSenderId: '675068008648',
+    projectId: 'quizz-game-629c0',
+    authDomain: 'quizz-game-629c0.firebaseapp.com',
+    storageBucket: 'quizz-game-629c0.appspot.com',
+    measurementId: 'G-YH6B0D1TDZ',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDUywK752Xyd1eUSAxJur3J19GKnfpdN24',
+    appId: '1:675068008648:android:74872c411d0bc44e872dfd',
+    messagingSenderId: '675068008648',
+    projectId: 'quizz-game-629c0',
+    storageBucket: 'quizz-game-629c0.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB_aI9sdgprkLPZNcmCHJgAImovBGUw9ns',
-    appId: '1:166904127927:ios:d68c1bef1e07748ab38832',
-    messagingSenderId: '166904127927',
-    projectId: 'quizz-game-b07ee',
-    storageBucket: 'quizz-game-b07ee.appspot.com',
+    apiKey: 'AIzaSyASTzzrqQRzLCxkLNwUWIiNFE9g-kZ0Kn4',
+    appId: '1:675068008648:ios:5b79f872cb1d715b872dfd',
+    messagingSenderId: '675068008648',
+    projectId: 'quizz-game-629c0',
+    storageBucket: 'quizz-game-629c0.appspot.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB_aI9sdgprkLPZNcmCHJgAImovBGUw9ns',
-    appId: '1:166904127927:ios:de2dcf97868f4de2b38832',
-    messagingSenderId: '166904127927',
-    projectId: 'quizz-game-b07ee',
-    storageBucket: 'quizz-game-b07ee.appspot.com',
+    apiKey: 'AIzaSyASTzzrqQRzLCxkLNwUWIiNFE9g-kZ0Kn4',
+    appId: '1:675068008648:ios:66e5415a01169a19872dfd',
+    messagingSenderId: '675068008648',
+    projectId: 'quizz-game-629c0',
+    storageBucket: 'quizz-game-629c0.appspot.com',
     iosBundleId: 'com.example.flutterApplication1.RunnerTests',
   );
 }

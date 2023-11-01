@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 class MyWidgetState extends State<LoginPage> {
   String userName = "Naheel";
   String password = "123";
-  
+
   @override
   Widget build(BuildContext context) {
     final stateprovider = Provider.of<Stateprovider>(context, listen: false);
@@ -83,7 +83,8 @@ class MyWidgetState extends State<LoginPage> {
                         builder: (context) => HomeCategory(),
                       ),
                     );
-                    stateprovider.addlogin(stateprovider.namecontroller.text, stateprovider.passwordcontroller.text);
+                    stateprovider.addlogin(stateprovider.namecontroller.text,
+                        stateprovider.passwordcontroller.text);
                   }
                 },
                 child: Text(
@@ -92,6 +93,21 @@ class MyWidgetState extends State<LoginPage> {
                 ),
               );
             }),
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: CircleAvatar(
+                    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                    radius: 24,
+                    child: Image.asset("assets/images/Google.png",
+                        fit: BoxFit.cover),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -109,5 +125,4 @@ class MyWidgetState extends State<LoginPage> {
       ),
     );
   }
-  
 }

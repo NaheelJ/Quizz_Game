@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "675068008648",
+    "project_id": "quizz-game-629c0",
+    "storage_bucket": "quizz-game-629c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675068008648:android:74872c411d0bc44e872dfd",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675068008648-1vbedmrc9dm9e2rkokg4d2obj9jp1lao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_application_1",
+            "certificate_hash": "2af0740abe002d80e78ed7f8fecfecbb9a3ff65f"
+          }
+        },
+        {
+          "client_id": "675068008648-26d3hpi8oket3dl1v7o1hbiu9ubk5119.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUywK752Xyd1eUSAxJur3J19GKnfpdN24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675068008648-26d3hpi8oket3dl1v7o1hbiu9ubk5119.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "675068008648-e9qekvd2q2l0u2viopvq07g0gffpne98.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterApplication1.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
