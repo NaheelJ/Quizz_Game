@@ -11,7 +11,7 @@ class Profilepage extends StatefulWidget {
 }
 
 class ProfilepageState extends State<Profilepage> {
-  Stateprovider provider =Stateprovider();
+  Stateprovider provider = Stateprovider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,7 @@ class ProfilepageState extends State<Profilepage> {
                           context,
                           MaterialPageRoute(builder: (context) => LoginPage()),
                           (Route<dynamic> route) => false);
-                          provider.removeLogin();
+                          value.removeLogin();
                     },
                     child: Text("Log out"));
               }),

@@ -67,6 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '675068008648',
     projectId: 'quizz-game-629c0',
     storageBucket: 'quizz-game-629c0.appspot.com',
+    androidClientId: '675068008648-1vbedmrc9dm9e2rkokg4d2obj9jp1lao.apps.googleusercontent.com',
+    iosClientId: '675068008648-h81h9k9jjfisl6c53ir4u2kusmp7rck0.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
 
@@ -76,6 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '675068008648',
     projectId: 'quizz-game-629c0',
     storageBucket: 'quizz-game-629c0.appspot.com',
+    androidClientId: '675068008648-1vbedmrc9dm9e2rkokg4d2obj9jp1lao.apps.googleusercontent.com',
+    iosClientId: '675068008648-e9qekvd2q2l0u2viopvq07g0gffpne98.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterApplication1.RunnerTests',
   );
 }

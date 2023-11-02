@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Question.dart';
+import 'package:flutter_application_1/ScoreList/History.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 List<String> usernamelist = [];
 List<String> passwordlist = [];
-int questionsAndOptions = 0;
+int Optionsindex = 0;
 int questionindex = 0;
 int score = 0;
 
 class Stateprovider extends ChangeNotifier {
   Question1State question = Question1State();
+  HistoryState historypage = HistoryState();
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
 
   void scoreclear() {
     score = 0;
-    questionsAndOptions = 0;
+    questionindex = 0;
+    Optionsindex = 0;
     notifyListeners();
   }
 
@@ -24,8 +27,8 @@ class Stateprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void questionAnadOptionIncrement() {
-    questionsAndOptions++;
+  void OptionIncrement() {
+    Optionsindex++;
     questionindex++;
     notifyListeners();
   }
@@ -42,10 +45,10 @@ class Stateprovider extends ChangeNotifier {
     passwordlist.clear();
     notifyListeners();
   }
-  void timeAnddate(){
-    // storedTimes = storedTimesList ?? []; 
-    notifyListeners();
-  }
+  // void timeAnddate(){
+  //   storedTimes = storedTimesList ?? []; 
+  //   notifyListeners();
+  // }
 
   Future<void> saveLogindata() async {
     final pref = await SharedPreferences.getInstance();
@@ -53,11 +56,13 @@ class Stateprovider extends ChangeNotifier {
     pref.setStringList('pasword', passwordlist);
   }
 
-   Future<void> removehistory() async {
-    final pref = await SharedPreferences.getInstance();
-    await pref.remove('storedTimes');
-    await pref.remove('scores');
-  }
+  //  Future<void> removehistory() async {
+  //   final pref = await SharedPreferences.getInstance();
+  //   await pref.remove('storedTimes');
+  //   await pref.remove('scores');
+  //   historypage.widget.scores.clear();
+  //   notifyListeners();
+  // }
 }
 
 Future<void> getloginData() async {

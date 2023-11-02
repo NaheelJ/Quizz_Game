@@ -48,8 +48,8 @@ class HistoryState extends State<History> {
                       },
                       icon: Icon(Icons.arrow_back_ios_new_rounded)),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 10.5,
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 12.5,
                     ),
                     child: Text(
                       "HISTORY",
@@ -60,19 +60,28 @@ class HistoryState extends State<History> {
                       ),
                     ),
                   ),
-                  Consumer<Stateprovider>(builder: (context, value, child) {
-                    return PopupMenuButton(icon: Icon(Icons.more_vert,size: 36,color: Color.fromARGB(255, 12, 4, 70),),
-                      onSelected: (value) {},
-                      itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                            value: value.removehistory(),
-                            child: Text("Clear",style: TextStyle(fontWeight: FontWeight.w400)),
-                          ),
-                        ];
-                      },
-                    );
-                  })
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 20,
+                  ),
+                  PopupMenuButton(
+                    icon: Icon(
+                      Icons.more_vert,
+                      size: 36,
+                      color: Color.fromARGB(255, 12, 4, 70),
+                    ),
+                    onSelected: (value) {},
+                    itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                        onTap: (){
+                          removehistory();
+                        },
+                          child: Text("Clear",
+                              style: TextStyle(fontWeight: FontWeight.w400)),
+                        ),
+                      ];
+                    },
+                  )
                 ],
               ),
             ),
@@ -89,39 +98,50 @@ class HistoryState extends State<History> {
                       width: 3, color: Color.fromARGB(255, 255, 255, 255)),
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width / 14.6),
-                        child: Text(
-                          "${widget.scores[index]}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Color.fromARGB(255, 0, 0, 0)),
-                        ),
-                      ),
-                      leading: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: widget.storedTimes.isEmpty && widget.scores.isEmpty
+                    ? Column(
                         children: [
+                          SizedBox(height: 20),
                           Text(
-                            usernamelist[0],
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Color.fromARGB(255, 0, 0, 0)),
+                            "Empty",
+                            style: TextStyle(fontSize: 20, color: Colors.red),
                           ),
-                          Text(widget.storedTimes[index]),
                         ],
+                      )
+                    : ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Padding(
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width / 14.6),
+                              child: Text(
+                                "${widget.scores[index]}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                              ),
+                            ),
+                            leading: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  usernamelist[0],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                ),
+                                Text(widget.storedTimes[index])
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: widget.scores.length,
                       ),
-                    );
-                  },
-                  itemCount: widget.scores.length,
-                ),
               ),
             ),
             Positioned(
@@ -152,7 +172,7 @@ class HistoryState extends State<History> {
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
                       ),
-                      SizedBox(width: 40),
+                      SizedBox(width: MediaQuery.of(context).size.width / 10),
                       Text(
                         "Time&date",
                         style: TextStyle(
@@ -160,7 +180,7 @@ class HistoryState extends State<History> {
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
                       ),
-                      SizedBox(width: 50),
+                      SizedBox(width: MediaQuery.of(context).size.width / 10),
                       Text(
                         "Score",
                         style: TextStyle(
@@ -196,9 +216,16 @@ class HistoryState extends State<History> {
     //await prefs.clear(); //to rest the saved preference
     setState(
       () {
-        widget.storedTimes =
-            storedTimesList ?? []; // Initialize as an empty list if null
+        widget.storedTimes = storedTimesList ?? []; // Initialize as an empty list if null
       },
     );
+  }
+   removehistory() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.remove('storedTimes');
+    await pref.remove('scores');
+    setState(() {
+      widget.scores.clear();
+    });
   }
 }

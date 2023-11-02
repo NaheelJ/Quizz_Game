@@ -27,7 +27,7 @@ class SplashscreenState extends State<Splashscreen> {
                 builder: (context) => LoginPage(),
               ));
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => HomeCategory(),

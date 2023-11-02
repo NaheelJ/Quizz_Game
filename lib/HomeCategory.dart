@@ -15,7 +15,7 @@ class HomeCategory extends StatefulWidget {
 }
 
 class _CategoryState extends State<HomeCategory> {
-   final pagecontroller = PageController();
+  final pagecontroller = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,14 +80,16 @@ class _CategoryState extends State<HomeCategory> {
                                   size: 30,
                                 ))),
                         SizedBox(width: 15),
-                        Text(
-                          usernamelist[0],
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
+                        usernamelist.isEmpty
+                            ? Text("Name not Found")
+                            : Text(
+                                usernamelist[0],
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
                       ],
                     );
                   },
@@ -183,11 +185,10 @@ class _CategoryState extends State<HomeCategory> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Question(
-                                          optionslist: sportsoptions,
-                                          questionlist: sportsQuestions,
-                                        ),
-                                      ));
+                                          builder: (context) => Question(
+                                                optionslist: sportsoptions,
+                                                questionlist: sportsQuestions,
+                                              )));
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/sports.png",
@@ -238,6 +239,7 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                                 onTap: () {
+                                  Alertdialog(context);
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/general.png",
@@ -272,8 +274,8 @@ class _CategoryState extends State<HomeCategory> {
           Icon(Icons.list, size: 30),
         ],
         onTap: (index) {
-            pagecontroller.animateToPage(index,
-                duration: Duration(milliseconds: 300), curve: Curves.bounceOut);
+          // pagecontroller.animateToPage(index,
+          //     duration: Duration(milliseconds: 300), curve: Curves.bounceOut);
         },
       ),
     );
@@ -302,11 +304,13 @@ class CardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             color: Color.fromARGB(255, 255, 255, 255)),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
                 width: MediaQuery.of(context).size.width / 4.8,
                 height: MediaQuery.of(context).size.height / 9.23,
                 child: Image.asset(imagepath)),
+            SizedBox(height: 5),
             Text(
               text,
               textAlign: TextAlign.center,
@@ -322,33 +326,25 @@ class CardWidget extends StatelessWidget {
   }
 }
 
-// class Curvednavigationbar extends StatefulWidget {
-//   const Curvednavigationbar({super.key});
-
-//   @override
-//   State<Curvednavigationbar> createState() => CurvednavigationbarState();
-// }
-
-// class CurvednavigationbarState extends State<Curvednavigationbar> {
-//   final pagecontroller = PageController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: PageView(
-//             controller: pagecontroller,
-//             children: [HomeCategory(), History(scores: [], storedTimes: [])]),
-//         bottomNavigationBar: CurvedNavigationBar(
-//           height: MediaQuery.of(context).size.height / 12,
-//           backgroundColor: Color.fromARGB(255, 193, 206, 229),
-//           items: <Widget>[
-//             Icon(Icons.home, size: 30),
-//             Icon(Icons.person_search, size: 30),
-//             Icon(Icons.list, size: 30),
-//           ],
-//           onTap: (index) {
-//             pagecontroller.animateToPage(index,
-//                 duration: Duration(milliseconds: 300), curve: Curves.bounceOut);
-//           },
-//         ));
-//   }
-// }
+class Alertdialog {
+  Alertdialog(BuildContext context);
+  Future alertDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert!!"),
+          content: Text("You are awesome!"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

@@ -72,7 +72,7 @@ class MyWidgetState extends State<Resultpage> {
                       ),
                     ),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(top: 30),
                 width: 300,
                 height: 200,
                 decoration: BoxDecoration(
@@ -124,14 +124,14 @@ class MyWidgetState extends State<Resultpage> {
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w400,
-                              color:  Color.fromARGB(255, 0, 0, 0)),
+                              color: Color.fromARGB(255, 0, 0, 0)),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 50),
               TextButton(
                 style: TextButton.styleFrom(
                     fixedSize: Size.fromWidth(200),
@@ -176,21 +176,22 @@ class MyWidgetState extends State<Resultpage> {
                   );
                 },
               ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => History(scores: widget.scores, storedTimes: storedTimes)),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.history,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  size: 34,
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: ((context) => History(
+              //             scores: widget.scores, storedTimes: storedTimes)),
+              //       ),
+              //     );
+              //   },
+              //   icon: Icon(
+              //     Icons.history,
+              //     color: Color.fromARGB(255, 0, 0, 0),
+              //     size: 34,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -210,13 +211,14 @@ class MyWidgetState extends State<Resultpage> {
     prefs.setString('scores', widget.scores.join(','));
     //print(widget.scores);
   }
+
   Future<void> saveTimeAndDate() async {
     final now = DateTime.now();
+    // final timeformat = "${now.day}:${now.minute}";
     final prefs = await SharedPreferences.getInstance();
     storedTimes = prefs.getStringList('storedTimes') ?? [];
     storedTimes.add(now.toString());
     await prefs.setStringList('storedTimes', storedTimes);
-    //await prefs.clear(); //to rest the saved preference
-    //print(storedTimes);
   }
+   
 }
