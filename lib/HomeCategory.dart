@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_application_1/Provider%20class/provider.dart';
@@ -15,9 +16,10 @@ class HomeCategory extends StatefulWidget {
 }
 
 class _CategoryState extends State<HomeCategory> {
-  final pagecontroller = PageController();
   @override
   Widget build(BuildContext context) {
+    final User? user = auth.currentUser;
+    final String? photoUrl = user?.photoURL;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 113, 80, 80),
       body: SizedBox(
@@ -47,59 +49,68 @@ class _CategoryState extends State<HomeCategory> {
                 color: Color.fromARGB(255, 6, 22, 51),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
                   ),
                 ),
               ),
               child: Padding(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height / 9.5),
-                child: Consumer<Stateprovider>(
-                  builder: (context, value, child) {
-                    return Row(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
                         SizedBox(width: 15),
-                        Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(144, 114, 114, 114),
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 255, 255, 255))),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Profilepage()));
-                                },
-                                icon: Icon(
-                                  Icons.person,
-                                  size: 30,
-                                ))),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Profilepage(),
+                                ));
+                          },
+                          child: CircleAvatar(
+                            radius: 25,
+                            backgroundColor:  Color.fromARGB(255, 255, 255, 255),
+                              child: user != null
+                                  ? CircleAvatar(
+                                      radius: 23.5,
+                                      backgroundColor: Colors.white,
+                                      backgroundImage: NetworkImage(photoUrl!))
+                                  : CircleAvatar(
+                                      radius: 23.5,
+                                      backgroundColor: Colors.white,
+                                      backgroundImage: AssetImage(
+                                        "assets/images/person.png",
+                                      ))),
+                        ),
                         SizedBox(width: 15),
-                        usernamelist.isEmpty
-                            ? Text("Name not Found")
-                            : Text(
-                                usernamelist[0],
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
+                        if (user != null || usernamelist.isNotEmpty)
+                          Text(
+                            user?.displayName ?? usernamelist[0],
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )
+                        else
+                          Text(
+                            "Username isempty",
+                        ),
                       ],
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
             ),
             Positioned(
               top: MediaQuery.of(context).size.height / 6.69,
-              left: 10,
-              right: 10,
+              left: 15,
+              right: 15,
               child: Container(
                 height: MediaQuery.of(context).size.height / 3.7,
                 decoration: BoxDecoration(
@@ -135,8 +146,7 @@ class _CategoryState extends State<HomeCategory> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) =>
-                              History(scores: [], storedTimes: [])),
+                          builder: ((context) => History()),
                         ),
                       );
                     },
@@ -163,15 +173,18 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                                 onTap: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Question(
-                                        optionslist: scienceoption,
-                                        questionlist: sciencequestion,
+                                  alertDialog(context, () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Question(
+                                          optionslist: scienceoption,
+                                          questionlist: sciencequestion,
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  },"Science & Techknowledgy Quizz", "START","Do You Want To Start Quizz!");
+
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/technolodgy.png",
@@ -182,13 +195,15 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                                 onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Question(
-                                                optionslist: sportsoptions,
-                                                questionlist: sportsQuestions,
-                                              )));
+                                  alertDialog(context, () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Question(
+                                                  optionslist: sportsoptions,
+                                                  questionlist: sportsQuestions,
+                                                )));
+                                  },"Sports Quizz", "START","Do You Want To Start Quizz!");
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/sports.png",
@@ -199,13 +214,16 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                                 onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Question(
-                                                optionslist: logicoptions,
-                                                questionlist: logicQuestions,
-                                              )));
+                                  alertDialog(context, () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Question(
+                                                  optionslist: logicoptions,
+                                                  questionlist: logicQuestions,
+                                                )));
+                                  },"Logic Quizz", "START","Do You Want To Start Quizz!");
+
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/matamatics.png",
@@ -220,18 +238,22 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                               onTap: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Question(
-                                              optionslist: entertainmentoption,
-                                              questionlist:
-                                                  entertainmentQuestions,
-                                            )));
+                                alertDialog(context, () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Question(
+                                                optionslist:
+                                                    entertainmentoption,
+                                                questionlist:
+                                                    entertainmentQuestions,
+                                              )));
+                                },"Entertainment Quizz", "START","Do You Want To Start Quizz!");
+
                                 value.scoreclear();
                               },
                               imagepath: "assets/images/entertaiment.png",
-                              text: "Entertaiment",
+                              text: "Entertainment",
                             );
                           }),
                           SizedBox(width: 15),
@@ -239,7 +261,8 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                                 onTap: () {
-                                  Alertdialog(context);
+                                 alertDialog(context, () { }, "General Knowledge Quizz", "START","Do You Want To Start Quizz!"
+                                  );
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/general.png",
@@ -250,6 +273,8 @@ class _CategoryState extends State<HomeCategory> {
                               builder: (context, value, child) {
                             return CardWidget(
                                 onTap: () {
+                                  alertDialog(context, () { }, "ART Quizz", "START","Do You Want To Start Quizz!",
+                                  );
                                   value.scoreclear();
                                 },
                                 imagepath: "assets/images/arts.png",
@@ -278,6 +303,45 @@ class _CategoryState extends State<HomeCategory> {
           //     duration: Duration(milliseconds: 300), curve: Curves.bounceOut);
         },
       ),
+    );
+  }
+
+  Future alertDialog(BuildContext context, VoidCallback onpressed,titleAlert,buttontext,yourAlert) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: AlertDialog(
+            backgroundColor: Color.fromARGB(255, 13, 13, 18),
+            title: Text(
+              titleAlert,
+              style: TextStyle(color: Colors.white),
+            ),
+            content: Text(
+              yourAlert,
+              style: TextStyle(color: Colors.white),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                onPressed: onpressed,
+                child: Text(
+                  buttontext,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -322,29 +386,6 @@ class CardWidget extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class Alertdialog {
-  Alertdialog(BuildContext context);
-  Future alertDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Alert!!"),
-          content: Text("You are awesome!"),
-          actions: <Widget>[
-            TextButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

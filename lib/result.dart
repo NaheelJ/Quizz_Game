@@ -1,17 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/HomeCategory.dart';
 import 'package:flutter_application_1/Provider%20class/provider.dart';
 import 'package:flutter_application_1/Question.dart';
-import 'package:flutter_application_1/ScoreList/History.dart';
 import 'package:flutter_application_1/listmodel.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Resultpage extends StatefulWidget {
   List<Quizz> questionlist = [];
   List<Quizz> optionslist = [];
-  List<int> scores = [];
+  
   Resultpage(
       {required this.questionlist, required this.optionslist, super.key});
 
@@ -20,11 +19,13 @@ class Resultpage extends StatefulWidget {
 }
 
 class MyWidgetState extends State<Resultpage> {
-  List<String> storedTimes = [];
+  
   @override
   Widget build(BuildContext context) {
-    saveQuizResult();
-    saveTimeAndDate();
+    final User? user = auth.currentUser;
+    final provider = Provider.of<Stateprovider>(context,listen :false);
+    provider.saveQuizResult();
+    provider.saveTimeAndDate();
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 214, 226, 246),
       body: Center(
@@ -88,7 +89,7 @@ class MyWidgetState extends State<Resultpage> {
                       style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.w400,
-                          color: const Color.fromARGB(255, 0, 0, 0)),
+                          color: Color.fromARGB(255, 0, 0, 0)),
                     ),
                   ),
                   subtitle: Padding(
@@ -108,13 +109,14 @@ class MyWidgetState extends State<Resultpage> {
                                   fontWeight: FontWeight.w400,
                                   color: const Color.fromARGB(255, 0, 0, 0)),
                             ),
+                            user != null || usernamelist.isNotEmpty?
                             Text(
-                              usernamelist[0],
+                             user?.displayName ?? usernamelist[0],
                               style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
                                   color: const Color.fromARGB(255, 0, 0, 0)),
-                            ),
+                            ):Text("user Not found"),
                           ],
                         ),
                         SizedBox(height: 20),
@@ -176,49 +178,10 @@ class MyWidgetState extends State<Resultpage> {
                   );
                 },
               ),
-              // IconButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: ((context) => History(
-              //             scores: widget.scores, storedTimes: storedTimes)),
-              //       ),
-              //     );
-              //   },
-              //   icon: Icon(
-              //     Icons.history,
-              //     color: Color.fromARGB(255, 0, 0, 0),
-              //     size: 34,
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
     );
   }
-
-  Future<void> saveQuizResult() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userScoresString = prefs.getString('scores');
-    if (userScoresString != null) {
-      widget.scores =
-          userScoresString.split(',').map((s) => int.tryParse(s) ?? 0).toList();
-    }
-    widget.scores.add(score);
-    //await prefs.clear();
-    prefs.setString('scores', widget.scores.join(','));
-    //print(widget.scores);
-  }
-
-  Future<void> saveTimeAndDate() async {
-    final now = DateTime.now();
-    // final timeformat = "${now.day}:${now.minute}";
-    final prefs = await SharedPreferences.getInstance();
-    storedTimes = prefs.getStringList('storedTimes') ?? [];
-    storedTimes.add(now.toString());
-    await prefs.setStringList('storedTimes', storedTimes);
-  }
-   
 }

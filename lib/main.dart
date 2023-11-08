@@ -26,9 +26,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => Stateprovider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Splashscreen(),
+      child: ChangeNotifierProvider(
+        create: (context) => GoogleAthentication(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Splashscreen(),
+        ),
       ),
     );
   }

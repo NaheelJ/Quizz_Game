@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/HomeCategory.dart';
 import 'package:flutter_application_1/Provider%20class/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:sign_in_button/sign_in_button.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -13,24 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class MyWidgetState extends State<LoginPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final GoogleSignIn googleSignIn = GoogleSignIn();
-   
-  User? _user;
-
-  @override
-  void initState() {
-    super.initState();
-    _auth.authStateChanges().listen(
-      (event) {
-        setState(
-          () {
-            _user = event;
-          },
-        );
-      },
-    );
-  }
+ 
 
   String userName = "Naheel";
   String password = "123";
@@ -38,6 +21,7 @@ class MyWidgetState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final stateprovider = Provider.of<Stateprovider>(context, listen: false);
+    final googleathentication = Provider.of<GoogleAthentication>(context, listen: false);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 246, 249, 255),
       body: SingleChildScrollView(
@@ -74,6 +58,8 @@ class MyWidgetState extends State<LoginPage> {
             SizedBox(
               width: MediaQuery.of(context).size.width / 1.18,
               child: TextField(
+                keyboardType: TextInputType.number,
+                maxLength: 3,
                 obscureText: true,
                 controller: stateprovider.passwordcontroller,
                 decoration: InputDecoration(
@@ -88,39 +74,46 @@ class MyWidgetState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 30),
-            Consumer<Stateprovider>(builder: (context, value, child) {
-              return TextButton(
-                style: TextButton.styleFrom(
-                    fixedSize: Size.fromWidth(
-                        MediaQuery.of(context).size.width / 1.33),
-                    shape: StadiumBorder(),
-                    backgroundColor: Color.fromARGB(255, 0, 0, 0)),
-                onPressed: () {
-                  if (stateprovider.namecontroller.text == userName &&
-                      stateprovider.passwordcontroller.text == password) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeCategory(),
-                      ),
-                    );
-                    stateprovider.addlogin(stateprovider.namecontroller.text,
-                        stateprovider.passwordcontroller.text);
-                  }
-                },
-                child: Text(
-                  "Login",
-                  style: TextStyle(fontSize: 24, color: Colors.white),
-                ),
-              );
-            }),
+            TextButton(
+              style: TextButton.styleFrom(
+                  fixedSize:
+                      Size.fromWidth(MediaQuery.of(context).size.width / 1.33),
+                  shape: StadiumBorder(),
+                  backgroundColor: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () {
+                if (stateprovider.namecontroller.text == userName &&
+                    stateprovider.passwordcontroller.text == password) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeCategory(),
+                    ),
+                  );
+                  stateprovider.addlogin(stateprovider.namecontroller.text,
+                      stateprovider.passwordcontroller.text);
+                }
+              },
+              child: Text(
+                "Login",
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+            ),
             SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // _user != null ? userInfo() : googleSignIn(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    User? user = await googleathentication.signInWithGoogle();
+                    if (user != null) {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeCategory(),));
+                      // Successfully signed in with Google
+                      // Navigate to the next screen or perform further actions.
+                    } else {
+                      print("Error");
+                      // Handle sign-in failure
+                    }
+                  },
                   child: CircleAvatar(
                     backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     radius: 20,
@@ -146,29 +139,5 @@ class MyWidgetState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  Widget userInfo() {
-    return Center(
-      child: Text("Error"),
-    );
-  }
-
-  // Widget googleSignIn() {
-  //   return SizedBox(
-  //     height: 50,
-  //     child: SignInButton(Buttons.google, onPressed: () {
-  //       handleGoogleSignIn();
-  //     }),
-  //   );
-  // }
-
-  void handleGoogleSignIn() {
-    try {
-      GoogleAuthProvider googleprovider = GoogleAuthProvider();
-      _auth.signInWithProvider(googleprovider);
-    } catch (error) {
-      print("error");
-    }
   }
 }

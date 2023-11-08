@@ -12,6 +12,7 @@ class Splashscreen extends StatefulWidget {
 }
 
 class SplashscreenState extends State<Splashscreen> {
+  
   @override
   void initState() {
     super.initState();
@@ -20,17 +21,24 @@ class SplashscreenState extends State<Splashscreen> {
     Timer(
       Duration(seconds: 2),
       () {
-        if (usernamelist.isEmpty && passwordlist.isEmpty) {
+        if (usernamelist.isNotEmpty && passwordlist.isNotEmpty) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginPage(),
+                builder: (context) => HomeCategory(),
               ));
-        } else {
+          } else if (auth.currentUser != null) {
+           Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeCategory(),
+              ));
+       }
+         else {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeCategory(),
+              builder: (context) => LoginPage()
             ),
           );
         }
@@ -48,7 +56,7 @@ class SplashscreenState extends State<Splashscreen> {
           margin: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / 5.6),
           child: CircularProgressIndicator(
-            color: Color.fromARGB(255, 0, 234, 255)),
+            color: Color.fromARGB(255, 0, 238, 255)),
         ),
       ),
     );

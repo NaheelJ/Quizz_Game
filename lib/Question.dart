@@ -28,7 +28,6 @@ class Question1State extends State<Question> {
 
   @override
   Widget build(BuildContext context) {
-    final index = Provider.of<Stateprovider>(context, listen: false);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 242, 242, 244),
       body: Center(
