@@ -1,7 +1,7 @@
 # Quizz Game
 
-| Home Screen                         | Question Screen                     | History Screen                      | Question Screen                     |
+| Home Screen                         | Question Screen                     | Result Screen                       | History Screen                      |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| ![Home_Screen](Sreenshot1.jpg)      | ![Question_Screen](Screenshot2.jpg) | ![History_screen](Screenshot3.jpg)  | ![Question_Screen](Screenshot4.jpg) |
+| ![Home_Screen](Sreenshot1.jpg)      | ![Question_Screen](Screenshot4.jpg) | ![History_screen](Screenshot3.jpg)  | ![Question_Screen](Screenshot2.jpg) |
 
 
