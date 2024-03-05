@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Provider%20class/provider.dart';
+import 'package:flutter_application_1/View%20Model/Provider%20class/provider.dart';
 import 'package:flutter_application_1/Splashscreenfd/splashscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,12 +26,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => Stateprovider(),
-      child: ChangeNotifierProvider(
-        create: (context) => GoogleAthentication(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Splashscreen(),
-        ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Splashscreen(),
       ),
     );
   }

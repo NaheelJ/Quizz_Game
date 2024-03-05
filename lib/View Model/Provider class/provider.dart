@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 List<String> usernamelist = [];
@@ -27,7 +25,7 @@ class Stateprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void OptionIncrement() {
+  void ptionIncrement() {
     Optionsindex++;
     questionindex++;
     notifyListeners();
@@ -103,58 +101,4 @@ Future<void> getloginData() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   usernamelist = pref.getStringList('username') ?? [];
   passwordlist = pref.getStringList('pasword') ?? [];
-}
-
-final FirebaseAuth auth = FirebaseAuth.instance;
-
-class GoogleAthentication extends ChangeNotifier {
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  User? _user;
-
-  User? get user => _user;
-
-  Future<User?> signInWithGoogle() async {
-    GoogleSignInAccount? googleSignInAccount;
-    try {
-      googleSignInAccount =
-          await googleSignIn.signIn().catchError((onError) => null);
-      if (googleSignInAccount == null) {
-        return null;
-      }
-    } catch (e) {
-      // print(e);
-    }
-
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleAuth =
-          await googleSignInAccount.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      try {
-        final UserCredential authResult =
-            await auth.signInWithCredential(credential);
-        final User? user = authResult.user;
-
-        return user;
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          // ...
-        } else if (e.code == 'invalid-credential') {
-          // ...
-        }
-      } catch (e) {
-        // ...
-      }
-    }
-    return null;
-  }
-
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-    // await googleSignIn.disconnect();
-    await GoogleSignIn().signOut();
-  }
 }

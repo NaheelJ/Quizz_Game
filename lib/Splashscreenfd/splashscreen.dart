@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/HomeCategory.dart';
-import 'package:flutter_application_1/Loginpage/Loginpage.dart';
-import 'package:flutter_application_1/Provider%20class/provider.dart';
+import 'package:flutter_application_1/View/Home/home_screen.dart';
+import 'package:flutter_application_1/View/Loginpage/Loginpage.dart';
+import 'package:flutter_application_1/View%20Model/Provider%20class/provider.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -12,7 +12,6 @@ class Splashscreen extends StatefulWidget {
 }
 
 class SplashscreenState extends State<Splashscreen> {
-  
   @override
   void initState() {
     super.initState();
@@ -21,27 +20,19 @@ class SplashscreenState extends State<Splashscreen> {
     Timer(
       Duration(seconds: 2),
       () {
-        if (usernamelist.isNotEmpty && passwordlist.isNotEmpty) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeCategory(),
-              ));
-          } else if (auth.currentUser != null) {
-           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeCategory(),
-              ));
-       }
-         else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoginPage()
-            ),
-          );
-        }
+        usernamelist.isNotEmpty && passwordlist.isNotEmpty
+            ? Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeCategory(),
+                ),
+              )
+            : Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
       },
     );
   }
@@ -56,7 +47,7 @@ class SplashscreenState extends State<Splashscreen> {
           margin: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / 5.6),
           child: CircularProgressIndicator(
-            color: Color.fromARGB(255, 0, 238, 255)),
+              color: Color.fromARGB(255, 0, 0, 0)),
         ),
       ),
     );
