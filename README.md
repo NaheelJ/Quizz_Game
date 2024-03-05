@@ -1,4 +1,4 @@
-Quiz Game
+#Quiz Game
 
 Quiz Game is a Flutter application that allows users to participate in quizzes across various categories, track their scores, and view their quiz history.
 
