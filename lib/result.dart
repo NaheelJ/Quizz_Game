@@ -89,26 +89,6 @@ class MyWidgetState extends State<Resultpage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Mr : ",
-                            style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w400,
-                                color: const Color.fromARGB(255, 0, 0, 0)),
-                          ),
-                           usernamelist.isNotEmpty?
-                          Text(
-                            usernamelist[0],
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                                color: const Color.fromARGB(255, 0, 0, 0)),
-                          ):Text("user Not found"),
-                        ],
-                      ),
                       SizedBox(height: 20),
                       Text(
                         'Your Score\n$score',

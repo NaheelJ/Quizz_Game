@@ -38,7 +38,7 @@ class _HomeCategoryState extends State<HomeCategory> {
                     crossAxisCount: 3, // Set the number of columns in the grid
                     mainAxisSpacing: 20, // Space between rows
                     childAspectRatio:
-                        .78, // The ratio of the width to the height of
+                        .74, // The ratio of the width to the height of
                     crossAxisSpacing: 5, // Space between column
                   ),
                   itemBuilder: (BuildContext context, int index) {

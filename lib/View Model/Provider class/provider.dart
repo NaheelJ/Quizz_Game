@@ -25,7 +25,7 @@ class Stateprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void ptionIncrement() {
+  void OptionIncrement() {
     Optionsindex++;
     questionindex++;
     notifyListeners();
